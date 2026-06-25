@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ricardo Granados — Talks</title>
+  <meta name="description" content="Conference talks and workshop slides by Ricardo Granados — AI, data engineering, and developer productivity." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #150027;
+      --velvet:     #831B84;
+      --dark-v:     #561257;
+      --magenta:    #E331D0;
+      --grey10:     #1a1a1a;
+      --grey20:     #333;
+      --grey60:     #999;
+      --grey90:     #e8e8e8;
+      --grey96:     #f5f5f5;
+      --white:      #ffffff;
+      --card-bg:    #1e0035;
+      --card-live:  #2a0048;
+      --accent:     linear-gradient(90deg, var(--velvet), var(--magenta));
+      --font:       'Helvetica Neue', Arial, sans-serif;
+      --mono:       'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 3rem 2rem 2rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+    }
+    .accent-rule {
+      width: 3rem;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 1.25rem 0 1rem;
+    }
+    .tagline {
+      font-size: 1rem;
+      color: var(--grey60);
+      max-width: 480px;
+    }
+    .contact-links {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .contact-links a {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--grey90);
+      text-decoration: none;
+      border-bottom: 1px solid var(--velvet);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .contact-links a:hover { color: var(--magenta); border-color: var(--magenta); }
+
+    /* ── Main grid ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey60);
+      margin: 2.5rem 0 1rem;
+    }
+
+    /* ── Talk card ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid #2a0048;
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 3px 0 0 3px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .card:hover { border-color: var(--velvet); background: var(--card-live); transform: translateY(-1px); }
+    .card:hover::before { opacity: 1; }
+
+    .card--archived {
+      background: #110020;
+      border-color: #1a002e;
+      opacity: 0.75;
+      cursor: default;
+      pointer-events: none;
+    }
+    .card--archived:hover { transform: none; }
+
+    .card-body { flex: 1; }
+    .card-meta {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--velvet);
+      margin-bottom: 0.35rem;
+    }
+    .card-archived-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey60);
+      margin-bottom: 0.35rem;
+    }
+    .card h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .card--archived h2 { color: var(--grey60); }
+    .card p {
+      font-size: 0.88rem;
+      color: var(--grey60);
+      line-height: 1.5;
+    }
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(131, 27, 132, 0.18);
+      color: var(--magenta);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .card--archived .tag {
+      background: rgba(100,100,100,0.15);
+      color: var(--grey60);
+    }
+    .card-arrow {
+      font-size: 1.2rem;
+      color: var(--velvet);
+      align-self: center;
+      flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .card:hover .card-arrow { transform: translateX(4px); color: var(--magenta); }
+
+    .archived-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--grey60);
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1px;
+      margin-top: 0.75rem;
+      pointer-events: all;
+      cursor: pointer;
+    }
+    .archived-cta:hover { color: var(--grey90); border-color: var(--grey60); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      color: var(--grey60);
+      border-top: 1px solid #1a002e;
+    }
+    footer a { color: var(--velvet); text-decoration: none; }
+    footer a:hover { color: var(--magenta); }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Ricardo Granados · Xebia</p>
+  <h1>Talks &amp; Workshops</h1>
+  <div class="accent-rule"></div>
+  <p class="tagline">AI engineering, data platforms, and developer productivity. Slides from conferences and internal sessions.</p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/ricardoagl" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/RicardoAGL" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://xebia.com" target="_blank" rel="noopener">Xebia</a>
+  </div>
+</header>
+
+<main id="talks">
+  <!-- Populated by script below -->
+</main>
+
+<footer>
+  Built with <a href="https://sli.dev" target="_blank" rel="noopener">Slidev</a> &amp; <a href="https://github.com/RicardoAGL/xebia-xke-sessions" target="_blank" rel="noopener">xebia-xke-sessions</a>
+</footer>
+
+<script>
+  const LINKEDIN = "https://www.linkedin.com/in/ricardoagl";
+
+  fetch('./_meta.json')
+    .then(r => r.json())
+    .then(talks => {
+      const live     = talks.filter(t => t.status === 'live');
+      const archived = talks.filter(t => t.status === 'archived');
+      const el = document.getElementById('talks');
+
+      function renderCard(talk) {
+        if (talk.status === 'live') {
+          return `
+            <a class="card" href="./${talk.slug}/" aria-label="Open talk: ${talk.title}">
+              <div class="card-body">
+                <p class="card-meta">${talk.forum} · ${formatDate(talk.date)}</p>
+                <h2>${talk.title}</h2>
+                <p>${talk.description}</p>
+                <div class="card-tags">${(talk.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+              </div>
+              <span class="card-arrow" aria-hidden="true">→</span>
+            </a>`;
+        } else {
+          return `
+            <div class="card card--archived" aria-label="Archived talk: ${talk.title}">
+              <div class="card-body">
+                <p class="card-archived-label">Archived · ${formatDate(talk.date)}</p>
+                <h2>${talk.title}</h2>
+                <p>${talk.description}</p>
+                <div class="card-tags">${(talk.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                <a class="archived-cta" href="${LINKEDIN}" target="_blank" rel="noopener" style="pointer-events:all">
+                  ✉ Message me for a copy
+                </a>
+              </div>
+            </div>`;
+        }
+      }
+
+      function formatDate(iso) {
+        const [y, m, d] = iso.split('-');
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return `${months[+m - 1]} ${+d}, ${y}`;
+      }
+
+      let html = '';
+      if (live.length) {
+        html += `<p class="section-label">Available now</p>`;
+        html += live.map(renderCard).join('');
+      }
+      if (archived.length) {
+        html += `<p class="section-label">Archive</p>`;
+        html += archived.map(renderCard).join('');
+      }
+      if (!talks.length) {
+        html = `<p style="color:var(--grey60); padding:2rem 0">No talks yet — check back soon.</p>`;
+      }
+      el.innerHTML = html;
+    })
+    .catch(() => {
+      document.getElementById('talks').innerHTML =
+        `<p style="color:var(--grey60); padding:2rem 0">Could not load talks list.</p>`;
+    });
+</script>
+</body>
+</html>
