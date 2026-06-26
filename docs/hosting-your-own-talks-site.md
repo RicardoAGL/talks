@@ -81,6 +81,63 @@ The talk slug must match what you used in `--base` (e.g. `writing-coach`, `dbt-i
 
 ---
 
+## Step 5b — Fix arrow-key navigation (required for hash routing)
+
+If your deck uses `routerMode: hash` in the frontmatter (recommended for GitHub Pages — avoids 404s on direct slide URLs), you need to patch two places in the compiled bundle after copying. Without this, the second arrow press navigates to a "not found" page.
+
+Slidev builds the base path (`/talks/<talk-slug>/`) into the JS bundle. When hash routing is active, two functions inside the bundle incorrectly prepend that base path to routes — causing the browser hash to become `#/talks/<talk-slug>/2` instead of `#/2`.
+
+**Find the bundle file** — it's the large JS file in `<talk-slug>/assets/`, named something like `index-xxxxxxxx.js`.
+
+**Apply both patches with a script:**
+
+```python
+# patch-bundle.py  — run from your talks repo root
+import sys
+
+slug = sys.argv[1]  # e.g. "writing-coach"
+import glob, os
+
+# Find the bundle
+bundles = glob.glob(f"{slug}/assets/index-*.js")
+assert len(bundles) == 1, f"Expected 1 bundle, found: {bundles}"
+path = bundles[0]
+
+with open(path) as f:
+    src = f.read()
+
+base = f"/talks/{slug}/"
+
+# Patch 1 — Vue Router hash history base
+old1 = f"ue(`{base}`)"
+new1 = "ue(`/`)"
+assert old1 in src, "Patch 1 target not found — check base path"
+src = src.replace(old1, new1, 1)
+
+# Patch 2 — ir(): Slidev slide path builder (play / presenter / export routes)
+old2 = f"return`{base}${{n?`export/${{r}}`:t?`presenter/${{r}}`:`${{r}}`}}`}}"
+new2 =  "return`/${n?`export/${r}`:t?`presenter/${r}`:`${r}`}`}"
+assert old2 in src, "Patch 2 target not found — check Slidev version"
+src = src.replace(old2, new2, 1)
+
+with open(path, "w") as f:
+    f.write(src)
+
+print(f"Patched {path}")
+```
+
+Run it:
+
+```bash
+python3 patch-bundle.py <talk-slug>
+```
+
+> **Do not patch `yn`** — that is Vite's internal module-preload resolver. Changing it breaks lazy-loaded chunks and causes a blank page.
+
+> **Slidev version note:** These patches were verified against Slidev v0.52.16. The function names (`ir`, `ue`) and template literal structure may differ in other versions. If an assertion fails, search the bundle for `/talks/<slug>/` and inspect each occurrence.
+
+---
+
 ## Step 6 — Register the talk in `_meta.json`
 
 Add an entry to `_meta.json`:
