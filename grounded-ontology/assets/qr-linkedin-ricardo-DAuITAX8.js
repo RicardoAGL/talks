@@ -1,0 +1,1 @@
+var e=`/talks/grounded-ontology/ricardo-pydata.png`,t=`/talks/grounded-ontology/qr-linkedin-ricardo.png`;export{e as n,t};

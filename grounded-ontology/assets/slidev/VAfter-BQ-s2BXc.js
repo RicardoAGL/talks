@@ -1,0 +1,1 @@
+import{$ as e,D as t,W as n,w as r}from"../modules/shiki-D3ZKdtxq.js";import{l as i}from"./utils-TEZ2zscm.js";var a=r({render(){let r=n(`after`);function a(t,n){return e(t,[[n]])}let o=this.$slots.default?.();if(o)return o=i(o),o.map(e=>a(t(e),r))}});export{a as t};

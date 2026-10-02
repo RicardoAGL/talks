@@ -1,5 +1,21 @@
 [
   {
+    "slug": "grounded-ontology",
+    "title": "Grounding AI Agents in Your Data Model",
+    "subtitle": "PyData Amsterdam · September 2026",
+    "description": "A live look at citation-grounded ontology generation with AI agents: extract structure deterministically, ground every claim in the source, and keep a human in the loop.",
+    "date": "2026-09-10",
+    "forum": "PyData Amsterdam",
+    "status": "live",
+    "tags": [
+      "ai",
+      "data-modeling",
+      "ontology",
+      "dbt",
+      "agents"
+    ]
+  },
+  {
     "slug": "writing-coach",
     "title": "Write Your Next Blog — with an AI Coach",
     "subtitle": "XKE · June 2026",
@@ -7,6 +23,11 @@
     "date": "2026-06-23",
     "forum": "XKE",
     "status": "live",
-    "tags": ["ai", "writing", "productivity", "claude"]
+    "tags": [
+      "ai",
+      "writing",
+      "productivity",
+      "claude"
+    ]
   }
 ]
