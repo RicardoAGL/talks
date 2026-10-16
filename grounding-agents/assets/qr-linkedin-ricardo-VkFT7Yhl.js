@@ -1,0 +1,1 @@
+var e=`/talks/grounding-agents/qr-linkedin-ricardo.png`;export{e as t};

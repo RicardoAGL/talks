@@ -1,5 +1,21 @@
 [
   {
+    "slug": "grounding-agents",
+    "title": "Grounding AI Agents in Your Data Model",
+    "subtitle": "AdvancedAI Amsterdam · October 2026",
+    "description": "Why AI agents get your business numbers wrong, and what fixed it in a paired test: write down the knowledge that lives only in the team's heads, have its owner sign it off, and give the agent a place to look it up.",
+    "date": "2026-10-14",
+    "forum": "AdvancedAI Amsterdam",
+    "status": "live",
+    "tags": [
+      "ai",
+      "agents",
+      "data-modeling",
+      "ontology",
+      "context"
+    ]
+  },
+  {
     "slug": "grounded-ontology",
     "title": "Grounding AI Agents in Your Data Model",
     "subtitle": "PyData Amsterdam · September 2026",
